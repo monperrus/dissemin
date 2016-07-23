@@ -373,7 +373,7 @@ class Researcher(models.Model):
 
     def init_from_orcid(self):
         from backend.tasks import init_profile_from_orcid
-        self.harvester = init_profile_from_orcid(pk=self.id).id
+        self.harvester = init_profile_from_orcid.delay(pk=self.id).id
         self.current_task = 'init'
         self.save(update_fields=['harvester', 'current_task'])
 
