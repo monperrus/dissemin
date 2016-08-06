@@ -65,6 +65,7 @@ install:
 before_script:
   - psql --version
   - psql -c "CREATE DATABASE dissemin;" -U postgres
+  - df -h
 
 script:
   - ./devutils/notify_translations
