@@ -24,6 +24,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.test import TransactionTestCase
 from selenium import webdriver
 from pyvirtualdisplay import Display
 from django.conf import settings
@@ -35,12 +36,13 @@ import sys
 RUN_LOCAL = (not os.environ.get('TRAVIS')) or os.environ.get('LOCAL_SELENIUM')
 
 
-class SeleniumTest(StaticLiveServerTestCase):
+class SeleniumTest(TransactionTestCase):
     # fixtures = ['oauth_orcid.json']
     # replaced by custom creations for now
 
     @classmethod
     def setUpClass(cls):
+        cls.live_server_url = '' # TODO delete me
         super(SeleniumTest, cls).setUpClass()
         settings.DEBUG = True
         if RUN_LOCAL:

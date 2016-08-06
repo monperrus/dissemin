@@ -23,7 +23,6 @@ from __future__ import unicode_literals
 from django.core.exceptions import ObjectDoesNotExist
 from django.test import TestCase
 
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from backend.oai import BASEDCTranslator
 from backend.oai import CiteprocTranslator
 from backend.oai import OAIDCTranslator
@@ -33,7 +32,7 @@ from oaipmh.error import BadArgumentError
 from papers.models import OaiRecord
 
 
-class OaiTest(StaticLiveServerTestCase):
+class OaiTest(TestCase):
 
     def setUp(self):
         self.oai = OaiPaperSource(endpoint='http://doai.io/oai')
