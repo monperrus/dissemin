@@ -45,34 +45,34 @@ class SeleniumTest(TransactionTestCase):
         cls.live_server_url = '' # TODO delete me
         super(SeleniumTest, cls).setUpClass()
         settings.DEBUG = True
-        if RUN_LOCAL:
-            cls.display = Display(visible=0, size=(800,600))
-            cls.display.start()
-            cls.selenium = webdriver.firefox.webdriver.WebDriver()
-            cls.selenium.implicitly_wait(5) # seconds
-        else:
-            # inspired from
-            # https://github.com/Victory/django-travis-saucelabs/blob/master/mysite/saucetests/tests.py
-            capabilities = {
-                'name': cls.__name__,
-                'tunnel-identifier': os.environ.get('TRAVIS_JOB_NUMBER'),
-                'build': os.environ.get('TRAVIS_BUILD_NUMBER'),
-                'tags': [
-                    os.environ.get('TRAVIS_PYTHON_VERSION'),
-                    'Travis',
-                    ],
-                'platform':'Linux',
-                'browserName':'firefox',
-                'version':'38',
-                }
-            username = os.environ.get('SAUCE_USERNAME')
-            access_key = os.environ.get('SAUCE_ACCESS_KEY')
-            sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
-            cls.sauce = SauceClient(username, access_key)
-            cls.selenium = webdriver.Remote(
-                    desired_capabilities=capabilities,
-                    command_executor=sauce_url % (username, access_key))
-            cls.selenium.implicitly_wait(5) # seconds
+        # if RUN_LOCAL:
+        #     cls.display = Display(visible=0, size=(800,600))
+        #     cls.display.start()
+        #     cls.selenium = webdriver.firefox.webdriver.WebDriver()
+        #     cls.selenium.implicitly_wait(5) # seconds
+        # else:
+        #     # inspired from
+        #     # https://github.com/Victory/django-travis-saucelabs/blob/master/mysite/saucetests/tests.py
+        #     capabilities = {
+        #         'name': cls.__name__,
+        #         'tunnel-identifier': os.environ.get('TRAVIS_JOB_NUMBER'),
+        #         'build': os.environ.get('TRAVIS_BUILD_NUMBER'),
+        #         'tags': [
+        #             os.environ.get('TRAVIS_PYTHON_VERSION'),
+        #             'Travis',
+        #             ],
+        #         'platform':'Linux',
+        #         'browserName':'firefox',
+        #         'version':'38',
+        #         }
+        #     username = os.environ.get('SAUCE_USERNAME')
+        #     access_key = os.environ.get('SAUCE_ACCESS_KEY')
+        #     sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
+        #     cls.sauce = SauceClient(username, access_key)
+        #     cls.selenium = webdriver.Remote(
+        #             desired_capabilities=capabilities,
+        #             command_executor=sauce_url % (username, access_key))
+        #     cls.selenium.implicitly_wait(5) # seconds
 
         # Set up ORCID OAuth
         s = SocialApp.objects.create(
