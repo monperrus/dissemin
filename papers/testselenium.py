@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import TransactionTestCase, TestCase
+from papers.models import Paper
 from selenium import webdriver
 from pyvirtualdisplay import Display
 from django.conf import settings
@@ -38,7 +39,8 @@ RUN_LOCAL = (not os.environ.get('TRAVIS')) or os.environ.get('LOCAL_SELENIUM')
 class MyDummyTestCase2(TestCase):
     @classmethod
     def setUpClass(cls):
-        super(MyDummyTestCase, cls).setUpClass()
+        super(MyDummyTestCase2, cls).setUpClass()
+        p = Paper.create_by_doi('10.1175/JAS-D-15-0240.1')
         s = SocialApp.objects.create(
         **{"provider": "orcid",
            "name": "Orcid sandbox",
