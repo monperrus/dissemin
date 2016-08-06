@@ -36,6 +36,21 @@ import sys
 RUN_LOCAL = (not os.environ.get('TRAVIS')) or os.environ.get('LOCAL_SELENIUM')
 
 
+class MyDummyTestCase(TransactionTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super(MyDummyTestCase, cls).setUpClass()
+        s = SocialApp.objects.create(
+        **{"provider": "orcid",
+           "name": "Orcid sandbox",
+           "client_id": "APP-ZAKE3VEWSG31TWSE",
+           "secret": "5f0464c4-375a-4925-84ff-95b0d410cad8",
+           "key": ""})
+        s.sites.add(1)
+
+    def test_dummy(self):
+        self.assertTrue(True)
+
 class SeleniumTest(TransactionTestCase):
     # fixtures = ['oauth_orcid.json']
     # replaced by custom creations for now
