@@ -69,7 +69,7 @@ before_script:
 
 script:
   - ./devutils/notify_translations
-  - coverage run --source=dissemin,papers,backend,deposit,upload,statistics --omit=*/migrations/*,dissemin/settings/* manage.py test -v 2
+  - coverage run --source=dissemin,papers,backend,deposit,upload,statistics --omit=*/migrations/*,dissemin/settings/* manage.py test -v 2 --testrunner dissemin.unordered_runner.UnorderedTestRunner
 
 after_success:
   - coveralls
