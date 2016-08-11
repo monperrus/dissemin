@@ -36,46 +36,7 @@ import sys
 
 RUN_LOCAL = (not os.environ.get('TRAVIS')) or os.environ.get('LOCAL_SELENIUM')
 
-class MyDummyTestCase2(TestCase):
-    @classmethod
-    def setUpClass(cls):
-        super(MyDummyTestCase2, cls).setUpClass()
-        s = SocialApp.objects.create(
-        **{"provider": "orcid",
-           "name": "Orcid sandbox",
-           "client_id": "APP-ZAKE3VEWSG31TWSE",
-           "secret": "5f0464c4-375a-4925-84ff-95b0d410cad8",
-           "key": ""})
-        s.sites.add(1)
-
-    def test_dummy(self):
-        self.assertTrue(True)
-
-class MyDummyTestCase3(TransactionTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super(MyDummyTestCase3, cls).setUpClass()
-        p = Paper.create_by_doi('10.1175/JAS-D-15-0240.1')
-
-    def test_dummy(self):
-        self.assertTrue(True)
-
-class MyDummyTestCase(TransactionTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super(MyDummyTestCase, cls).setUpClass()
-        s = SocialApp.objects.create(
-        **{"provider": "orcid",
-           "name": "Orcid sandbox",
-           "client_id": "APP-ZAKE3VEWSG31TWSE",
-           "secret": "5f0464c4-375a-4925-84ff-95b0d410cad8",
-           "key": ""})
-        s.sites.add(1)
-
-    def test_dummy(self):
-        self.assertTrue(True)
-
-class SeleniumTest(TransactionTestCase):
+class SeleniumTest(StaticLiveServerTestCase):
     # fixtures = ['oauth_orcid.json']
     # replaced by custom creations for now
 
